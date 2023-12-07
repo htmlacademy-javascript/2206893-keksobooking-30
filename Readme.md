@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Tatyana MIlneva](https://up.htmlacademy.ru/javascript/30/user/2206893).
-* Наставник: `Неизвестно`.
+* Наставник: [Ольга Ветер](https://htmlacademy.ru/profile/id73199).
 
 ---
 
