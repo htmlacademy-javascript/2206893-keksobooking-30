@@ -1,9 +1,5 @@
 const ANNOUNCEMENT_COUNT = 10;
 const BASE_IMG_URL = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/';
-const AVATAR_ID = {
-  min: 1,
-  max: 10
-};
 const PRICE = {
   min: 1,
   max: 100000
