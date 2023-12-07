@@ -120,7 +120,7 @@ const generateAnnouncement = () => {
       'lat': lat,
       'lng': lng
     }
-  }
+  };
 };
 
 const generateAnnouncements = Array.from({length: ANNOUNCEMENT_COUNT}, generateAnnouncement);
