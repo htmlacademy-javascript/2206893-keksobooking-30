@@ -59,6 +59,15 @@ const TITLE = [
   'Тихая квартирка недалеко от метро',
   'Огромный особняк для всей вашей компании'
 ];
+const DESCRIPTION = [
+  'Маленькая квартирка рядом с парком',
+  'Чёткая хата',
+  'Небольшая лавочка в парке',
+  'Уютное гнездышко для молодоженов',
+  'Вы захотите тут остаться жить',
+  'Тихая квартирка недалеко от метро',
+  'Огромный особняк для всей вашей компании'
+];
 const LATITUDE = {
   min: 35.65,
   max: 35.7
@@ -68,14 +77,16 @@ const LONGITUDE = {
   max: 139.8
 };
 
+let avatarId = 0;
+
 const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+const getRandomCoordinate = (min, max) => (Math.random() * (max - min) + min).toFixed(5);
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-const getRandomAvatar = () => {
-  const avatar = getRandomInteger(AVATAR_ID.min, AVATAR_ID.max)
-  if (avatar < 10) {
-    return `img/avatars/user0${avatar}.png`
+const getAvatar = (id) => {
+  if (id < 10) {
+    return `img/avatars/user0${id}.png`
   }
-  return `img/avatars/user${avatar}.png`
+  return `img/avatars/user${id}.png`
 };
 
 const generatePhotos = () => {
@@ -83,26 +94,38 @@ const generatePhotos = () => {
   return Array.from(new Set(photos));
 };
 
-const generateAnnouncement = () => ({
-  'author': {
-    'avatar': getRandomAvatar()
-  },
-  'offer': {
-    'title': getRandomArrayElement(TITLE),
-    'address': '102-0075 Tōkyō-to, Chiyoda-ku, Sanbanchō',
-    'price': getRandomInteger(PRICE.min, PRICE.max),
-    'type': getRandomArrayElement(TYPE),
-    'rooms': getRandomInteger(ROOMS_COUNT.min, ROOMS_COUNT.max),
-    'guests': getRandomInteger(GUESTS_COUNT.min, GUESTS_COUNT.max),
-    'checkin': getRandomArrayElement(CHECKIN),
-    'checkout': getRandomArrayElement(CHECKOUT),
-    'photos': generatePhotos()
-  },
-  'location': {
-    'lat': 35.65935818784681,
-    'lng': 139.78305159450522
+const generateFeatures = () => {
+  const features = Array.from({length: getRandomInteger(0, FEATURES.length)}, () => `${getRandomArrayElement(FEATURES)}`);
+  return Array.from(new Set(features));
+};
+
+const generateAnnouncement = () => {
+  const lat = getRandomCoordinate(LATITUDE.min, LATITUDE.max);
+  const lng = getRandomCoordinate(LONGITUDE.min, LONGITUDE.max);
+  avatarId++;
+  return {
+    'author': {
+      'avatar': getAvatar(avatarId)
+    },
+    'offer': {
+      'title': getRandomArrayElement(TITLE),
+      'address': `${lat}, ${lng}`,
+      'price': getRandomInteger(PRICE.min, PRICE.max),
+      'type': getRandomArrayElement(TYPE),
+      'rooms': getRandomInteger(ROOMS_COUNT.min, ROOMS_COUNT.max),
+      'guests': getRandomInteger(GUESTS_COUNT.min, GUESTS_COUNT.max),
+      'checkin': getRandomArrayElement(CHECKIN),
+      'checkout': getRandomArrayElement(CHECKOUT),
+      'features': generateFeatures(),
+      'description': getRandomArrayElement(DESCRIPTION),
+      'photos': generatePhotos()
+    },
+    'location': {
+      'lat': lat,
+      'lng': lng
+    }
   }
-});
+};
 
 const generateAnnouncements = Array.from({length: ANNOUNCEMENT_COUNT}, generateAnnouncement);
 
