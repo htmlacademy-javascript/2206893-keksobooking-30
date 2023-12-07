@@ -20,7 +20,7 @@ const ROOMS_COUNT = {
   min: 1,
   max: 10
 };
-const TYPE = [
+const TYPES = [
   'palace',
   'flat',
   'house',
@@ -35,12 +35,12 @@ const FEATURES = [
   'elevator',
   'conditioner'
 ];
-const CHECKIN = [
+const CHECKIN_HOURS = [
   '12:00',
   '13:00',
   '14:00'
 ];
-const CHECKOUT = [
+const CHECKOUT_HOURS = [
   '12:00',
   '13:00',
   '14:00'
@@ -50,7 +50,7 @@ const PHOTOS = [
   'brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'claire-rendall-b6kAwr1i0Iw.jpg'
 ];
-const TITLE = [
+const TITLES = [
   'Маленькая квартирка рядом с парком',
   'Чёткая хата',
   'Небольшая лавочка в парке',
@@ -59,7 +59,7 @@ const TITLE = [
   'Тихая квартирка недалеко от метро',
   'Огромный особняк для всей вашей компании'
 ];
-const DESCRIPTION = [
+const DESCRIPTIONS = [
   'Маленькая квартирка рядом с парком',
   'Чёткая хата',
   'Небольшая лавочка в парке',
@@ -108,16 +108,16 @@ const generateAnnouncement = () => {
       'avatar': getAvatar(avatarId)
     },
     'offer': {
-      'title': getRandomArrayElement(TITLE),
+      'title': getRandomArrayElement(TITLES),
       'address': `${lat}, ${lng}`,
       'price': getRandomInteger(PRICE.min, PRICE.max),
-      'type': getRandomArrayElement(TYPE),
+      'type': getRandomArrayElement(TYPES),
       'rooms': getRandomInteger(ROOMS_COUNT.min, ROOMS_COUNT.max),
       'guests': getRandomInteger(GUESTS_COUNT.min, GUESTS_COUNT.max),
-      'checkin': getRandomArrayElement(CHECKIN),
-      'checkout': getRandomArrayElement(CHECKOUT),
+      'checkin': getRandomArrayElement(CHECKIN_HOURS),
+      'checkout': getRandomArrayElement(CHECKOUT_HOURS),
       'features': generateFeatures(),
-      'description': getRandomArrayElement(DESCRIPTION),
+      'description': getRandomArrayElement(DESCRIPTIONS),
       'photos': generatePhotos()
     },
     'location': {
