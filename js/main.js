@@ -1,3 +1,3 @@
-import {generateAdsData} from './data.js';
+import {renderAds} from './render-ads/render-data.js';
 
-void generateAdsData();
+renderAds();

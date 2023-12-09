@@ -1,4 +1,4 @@
-import {getRandomInteger, getRandomNumber, getRandomArrayElement} from './utils/util.js';
+import {getRandomInteger, getRandomNumber, getRandomArrayElement} from '../utils/util.js';
 
 const AD_COUNT = 10;
 const BASE_IMG_URL = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/';
@@ -7,7 +7,7 @@ const PRICE = {
   max: 100000
 };
 const PHOTOS_COUNT = {
-  min: 1,
+  min: 0,
   max: 3
 };
 const GUESTS_COUNT = {
@@ -27,8 +27,8 @@ const TYPES = [
 ];
 const FEATURES = [
   'wifi',
-  'flat',
-  'parkin',
+  'dishwasher',
+  'parking',
   'washer',
   'elevator',
   'conditioner'
