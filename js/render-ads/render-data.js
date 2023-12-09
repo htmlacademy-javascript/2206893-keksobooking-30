@@ -24,7 +24,7 @@ const getOfferType = (type) => {
 const renderFeatures = (features, adData) => {
   const featuresList = adData.querySelectorAll('.popup__feature');
 
-  if (features.length === 0) {
+  if (features.length === 0 || !features) {
     return adData.querySelector('.popup__features').remove();
   }
 
@@ -40,7 +40,7 @@ const renderPhotos = (photos, adData) => {
   const photoTemplate = adData.querySelector('.popup__photo');
   adData.querySelector('.popup__photo').remove();
 
-  if (photos.length === 0) {
+  if (photos.length === 0 || !photos) {
     return photosContainer.remove();
   }
 
