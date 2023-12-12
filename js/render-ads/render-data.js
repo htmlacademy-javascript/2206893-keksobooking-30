@@ -1,25 +1,18 @@
 import {generateAdsData} from './generate-data.js';
 
+const offerType = {
+  'palace': 'Дворец',
+  'flat': 'Квартира',
+  'house': 'Дом',
+  'bungalow': 'Бунгало',
+  'hotel': 'Отель'
+};
+
 const container = document.querySelector('#map-canvas');
 const template = document.querySelector('#card').content.querySelector('.popup');
 
 const adsData = generateAdsData();
 const fragment = document.createDocumentFragment();
-
-const getOfferType = (type) => {
-  switch(type) {
-    case 'palace':
-      return 'Дворец';
-    case 'flat':
-      return 'Квартира';
-    case 'house':
-      return 'Дом';
-    case 'bungalow':
-      return 'Бунгало';
-    case 'hotel':
-      return 'Отель';
-  }
-};
 
 const renderFeatures = (features, adData) => {
   const featuresList = adData.querySelectorAll('.popup__feature');
@@ -61,7 +54,7 @@ const renderAd = (data) => {
   adData.querySelector('.popup__text--price').textContent = `${offer.price} `;
   adData.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
   adData.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  adData.querySelector('.popup__type').textContent = getOfferType(offer.type);
+  adData.querySelector('.popup__type').textContent = offerType[offer.type];
   renderFeatures(offer.features, adData);
   renderPhotos(offer.photos, adData);
 
