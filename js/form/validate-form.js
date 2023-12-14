@@ -55,6 +55,11 @@ const checkErrors = () => {
   pristine.addValidator(guestsNumber, validateGuestsNumber, ERROR_GUESTS_TEXT, 1, true);
 };
 
+Pristine.setLocale('ru');
+Pristine.addMessages('ru', {
+  required: 'Это поле обязательно'
+});
+
 const validateForm = () => pristine.validate();
 
 const resetFormValidator = () => pristine.reset();
