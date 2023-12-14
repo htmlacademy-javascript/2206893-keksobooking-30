@@ -9,18 +9,18 @@ const setElementsState = (elements, state) => {
   });
 };
 
-function activateForm () {
+const activateForm = () => {
   adForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
   setElementsState(adFormElements, false);
   setElementsState(mapFiltersElements, false);
-}
+};
 
-function deactivateForm () {
+const deactivateForm = () => {
   adForm.classList.add('ad-form--disabled');
   mapFilters.classList.add('map__filters--disabled');
   setElementsState(adFormElements, true);
   setElementsState(mapFiltersElements, true);
-}
+};
 
 export {activateForm, deactivateForm};
