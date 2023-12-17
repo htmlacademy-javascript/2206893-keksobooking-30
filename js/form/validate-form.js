@@ -20,7 +20,7 @@ const ROOMS_GUESTS_OPTIONS = {
   100: ['0']
 };
 
-const ERROR_LENGTH_TITLE_TEXT = 'Заголовок должен быть длиной от 30 до 100 символов';
+const ERROR_LENGTH_TITLE_TEXT = `Заголовок должен быть длиной от ${TITLE_LENGTH.min} до ${TITLE_LENGTH.max} символов`;
 const ERROR_MAX_PRICE_TEXT = 'Цена выше максимальной';
 const ERROR_MIN_PRICE_TEXT = 'Цена ниже минимальной';
 const ERROR_GUESTS_TEXT = 'Количество мест не соответствует количеству комнат';
