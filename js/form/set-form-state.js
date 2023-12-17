@@ -1,4 +1,4 @@
-import {initSlider, updateSliderByType, updateSliderByPriceInput} from './slider-control.js';
+import {initSlider, updateSliderByPriceInput} from './slider-control.js';
 
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -17,7 +17,6 @@ const activateForm = () => {
   setElementsState(adFormElements, false);
   setElementsState(mapFiltersElements, false);
   initSlider();
-  updateSliderByType();
   updateSliderByPriceInput();
 };
 
