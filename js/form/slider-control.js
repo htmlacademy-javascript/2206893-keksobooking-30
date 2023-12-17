@@ -35,7 +35,7 @@ const onPriceInputChange = () => {
   slider.noUiSlider.set(price.value);
 };
 
-const updateSliderByPriceInput = () => price.addEventListener('change', onPriceInputChange);
+const updateSliderByPriceInput = () => price.addEventListener('input', onPriceInputChange);
 const resetSlider = () => slider.noUiSlider.reset();
 
 export {initSlider, updateSliderByPriceInput, resetSlider};
