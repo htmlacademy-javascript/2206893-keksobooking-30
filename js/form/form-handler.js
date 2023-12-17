@@ -4,6 +4,7 @@ import {resetSlider} from './slider-control.js';
 const price = document.querySelector('#price');
 const defaultPricePlaceholder = price.placeholder;
 const defaultPrice = price.value;
+const defaultMinPrice = price.min;
 
 const adForm = document.querySelector('.ad-form');
 
@@ -19,6 +20,7 @@ const onResetForm = () => {
   resetSlider();
   price.placeholder = defaultPricePlaceholder;
   price.value = defaultPrice;
+  price.min = defaultMinPrice;
 };
 
 const sendForm = () => {
@@ -28,6 +30,7 @@ const sendForm = () => {
   resetSlider();
   price.placeholder = defaultPricePlaceholder;
   price.value = defaultPrice;
+  price.min = defaultMinPrice;
 };
 
 const resetForm = () => adForm.addEventListener('reset', onResetForm);
