@@ -1,3 +1,5 @@
+import {validatePrice} from './validate-form.js';
+
 const MAX_PRICE = 100000;
 const STEP = 1;
 
@@ -21,13 +23,14 @@ const initSlider = () => {
       },
       from: function (value) {
         return parseFloat(value);
-      },
+      }
     }
   });
 
-  slider.noUiSlider.off('update');
-  slider.noUiSlider.on('update', () => {
+  slider.noUiSlider.off('slide');
+  slider.noUiSlider.on('slide', () => {
     price.value = slider.noUiSlider.get();
+    validatePrice();
   });
 };
 

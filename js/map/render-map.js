@@ -11,14 +11,14 @@ const DEFAULT_MAP_CENTER = {
 
 const map = L.map('map-canvas');
 
-const adDefaultMarker = () => {
+// const adDefaultMarker = () => {
 
-};
+// };
 
 const renderMap = () => {
   map.on('load', () => {
     activateForm();
-    adDefaultMarker();
+    // adDefaultMarker();
   }).setView(DEFAULT_MAP_CENTER, ZOOM);
 
   L.tileLayer(TILE_LAYER, {

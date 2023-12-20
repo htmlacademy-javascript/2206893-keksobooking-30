@@ -64,10 +64,12 @@ const validateForm = () => pristine.validate();
 
 const resetFormValidator = () => pristine.reset();
 
+const validatePrice = () => pristine.validate(price);
+
 const onTypeChange = () => {
   price.placeholder = `Минимум ${MIN_PRICE[type.value]}`;
   price.min = MIN_PRICE[type.value];
-  pristine.validate(price);
+  validatePrice();
 };
 
 const onRoomsGuestsNumberChange = () => {
@@ -86,4 +88,5 @@ const adFormChange = () => {
   checkout.addEventListener('change', () => onTimeChange(checkout, checkin));
 };
 
-export {validateForm, adFormChange, checkErrors, resetFormValidator};
+
+export {validateForm, adFormChange, checkErrors, resetFormValidator, validatePrice};
