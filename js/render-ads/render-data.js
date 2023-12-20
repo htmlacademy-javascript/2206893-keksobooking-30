@@ -1,4 +1,4 @@
-import {generateAdsData} from './generate-data.js';
+// import {generateAdsData} from './generate-data.js';
 
 const offerType = {
   'palace': 'Дворец',
@@ -11,8 +11,7 @@ const offerType = {
 const container = document.querySelector('#map-canvas');
 const template = document.querySelector('#card').content.querySelector('.popup');
 
-const adsData = generateAdsData();
-const fragment = document.createDocumentFragment();
+// const adsData = generateAdsData();
 
 const renderFeatures = (features, adData) => {
   const featuresList = adData.querySelectorAll('.popup__feature');
@@ -64,13 +63,7 @@ const renderAd = (data) => {
     adData.querySelector('.popup__description').remove();
   }
 
-  fragment.appendChild(adData);
+  return container.appendChild(adData);
 };
 
-const renderAds = () => {
-  renderAd(adsData[0]);
-
-  container.appendChild(fragment);
-};
-
-export {renderAds};
+export {renderAd};

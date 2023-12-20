@@ -1,4 +1,6 @@
 import {initSlider, updateSliderByPriceInput} from './slider-control.js';
+import {adFormChange, checkErrors} from '../form/validate-form.js';
+import {sendForm, resetForm} from '../form/form-handler.js';
 
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -18,6 +20,10 @@ const activateForm = () => {
   setElementsState(mapFiltersElements, false);
   initSlider();
   updateSliderByPriceInput();
+  adFormChange();
+  checkErrors();
+  sendForm();
+  resetForm();
 };
 
 const deactivateForm = () => {
