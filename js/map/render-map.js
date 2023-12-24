@@ -1,5 +1,6 @@
 import {activateForm} from '../form/set-form-state.js';
 import {generateAdsData} from '../render-ads/generate-data.js';
+import {renderAd} from '../render-ads/render-data.js';
 
 const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -7,7 +8,7 @@ const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">Open
 const ZOOM = 13;
 const COORDINATES_ROUND = 5;
 const DEFAULT_MAP_CENTER = {
-  lat: 35.6895,
+  lat: 35.675,
   lng: 139.75
 };
 const DEFAULT_MARKER_POSITION = {
@@ -29,33 +30,51 @@ const AD_ICON_CONFIG = {
   anchorY: 40,
 };
 
-const adsData = generateAdsData();
+const ads = generateAdsData();
 const map = L.map('map-canvas');
 
-const DEFAULT_MARKER_ICON = L.icon({
+const defaultMarkerIcon = L.icon({
   iconUrl: DEFAULT_ICON_CONFIG.url,
   iconSize: [DEFAULT_ICON_CONFIG.width, DEFAULT_ICON_CONFIG.height],
   iconAnchor: [DEFAULT_ICON_CONFIG.anchorX, DEFAULT_ICON_CONFIG.anchorY],
 });
 
+const adMarkerIcon = L.icon({
+  iconUrl: AD_ICON_CONFIG.url,
+  iconSize: [AD_ICON_CONFIG.width, AD_ICON_CONFIG.height],
+  iconAnchor: [AD_ICON_CONFIG.anchorX, AD_ICON_CONFIG.anchorY],
+});
+
 const defaultMarker = L.marker(DEFAULT_MARKER_POSITION, {
   draggable: true,
-  icon: DEFAULT_MARKER_ICON
+  icon: defaultMarkerIcon
 }).addTo(map);
 
-const onDefaultMarkerMoveend = (evt, input) => {
+const onMoveendDefaultMarker = (evt, input) => {
   const newPosition = evt.target.getLatLng();
   input.value = `${newPosition.lat.toFixed(COORDINATES_ROUND)}, ${newPosition.lng.toFixed(COORDINATES_ROUND)}`;
 };
 
 const renderDefaultMarkerCoordinates = (input) => {
   input.value = `${DEFAULT_MARKER_POSITION.lat.toFixed(COORDINATES_ROUND)}, ${DEFAULT_MARKER_POSITION.lng.toFixed(COORDINATES_ROUND)}`;
-  defaultMarker.on('moveend', (evt) => onDefaultMarkerMoveend(evt, input));
+  defaultMarker.on('moveend', (evt) => onMoveendDefaultMarker(evt, input));
+};
+
+const markersGroup = L.layerGroup().addTo(map);
+
+const renderAdMarker = (ad) => L.marker(ad.location, {
+  icon: adMarkerIcon,
+}).addTo(markersGroup)
+  .bindPopup(renderAd(ad));
+
+const renderAdsMarkers = () => {
+  ads.forEach((ad) => renderAdMarker(ad));
 };
 
 const renderMap = () => {
   map.on('load', () => {
     activateForm();
+    renderAdsMarkers();
   }).setView(DEFAULT_MAP_CENTER, ZOOM);
 
   L.tileLayer(TILE_LAYER, {
@@ -63,4 +82,10 @@ const renderMap = () => {
   }).addTo(map);
 };
 
-export {renderMap, renderDefaultMarkerCoordinates};
+const resetMap = (input) => {
+  defaultMarker.setLatLng(DEFAULT_MARKER_POSITION);
+  map.setView(DEFAULT_MAP_CENTER, ZOOM);
+  input.value = `${DEFAULT_MARKER_POSITION.lat.toFixed(COORDINATES_ROUND)}, ${DEFAULT_MARKER_POSITION.lng.toFixed(COORDINATES_ROUND)}`;
+};
+
+export {renderMap, renderDefaultMarkerCoordinates, resetMap};

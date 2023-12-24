@@ -1,6 +1,6 @@
 import {validateForm, resetFormValidator} from './validate-form.js';
 import {resetSlider} from './slider-control.js';
-import {renderDefaultMarkerCoordinates} from '../map/render-map.js';
+import {renderDefaultMarkerCoordinates, resetMap} from '../map/render-map.js';
 
 const price = document.querySelector('#price');
 const defaultPricePlaceholder = price.placeholder;
@@ -16,26 +16,23 @@ const onSubmitForm = (evt) => {
   }
 };
 
-const onResetForm = () => {
+const onResetForm = (evt) => {
+  evt.preventDefault();
   adForm.reset();
   resetFormValidator();
   resetSlider();
+  resetMap(address);
+  price.min = defaultMinPrice;
   price.placeholder = defaultPricePlaceholder;
   price.value = defaultPrice;
-  price.min = defaultMinPrice;
-};
-
-const sendForm = () => {
-  adForm.addEventListener('submit', onSubmitForm);
-  adForm.reset();
-  resetFormValidator();
-  renderDefaultMarkerCoordinates(address);
-  resetSlider();
-  price.placeholder = defaultPricePlaceholder;
-  price.value = defaultPrice;
-  price.min = defaultMinPrice;
 };
 
 const resetForm = () => adForm.addEventListener('reset', onResetForm);
 
-export {sendForm, resetForm};
+const sendForm = () => {
+  adForm.addEventListener('submit', onSubmitForm);
+  renderDefaultMarkerCoordinates(address);
+  resetForm();
+};
+
+export {sendForm};
