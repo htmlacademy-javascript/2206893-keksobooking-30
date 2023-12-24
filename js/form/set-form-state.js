@@ -13,11 +13,9 @@ const setElementsState = (elements, state) => {
   });
 };
 
-const activateForm = () => {
+const activateAdForm = () => {
   adForm.classList.remove('ad-form--disabled');
-  mapFilters.classList.remove('map__filters--disabled');
   setElementsState(adFormElements, false);
-  setElementsState(mapFiltersElements, false);
   initSlider();
   updateSliderByPriceInput();
   adFormChange();
@@ -25,11 +23,16 @@ const activateForm = () => {
   sendForm();
 };
 
-const deactivateForm = () => {
+const activateFilters = () => {
+  mapFilters.classList.remove('map__filters--disabled');
+  setElementsState(mapFiltersElements, false);
+};
+
+const deactivateForms = () => {
   adForm.classList.add('ad-form--disabled');
   mapFilters.classList.add('map__filters--disabled');
   setElementsState(adFormElements, true);
   setElementsState(mapFiltersElements, true);
 };
 
-export {activateForm, deactivateForm};
+export {activateAdForm, activateFilters, deactivateForms};

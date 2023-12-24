@@ -80,13 +80,30 @@ const onTimeChange = (first, second) => {
   second.value = first.value;
 };
 
-const adFormChange = () => {
-  type.addEventListener('change', onTypeChange);
-  roomsNumber.addEventListener('change', onRoomsGuestsNumberChange);
-  guestsNumber.addEventListener('change', onRoomsGuestsNumberChange);
-  checkin.addEventListener('change', () => onTimeChange(checkin, checkout));
-  checkout.addEventListener('change', () => onTimeChange(checkout, checkin));
-};
+const adFormChange = () => adForm.addEventListener('change', (event) => {
+  switch(event.target.name) {
+    case 'type':
+      onTypeChange();
+      break;
+    case 'rooms':
+      onRoomsGuestsNumberChange();
+      break;
+    case 'capacity':
+      onRoomsGuestsNumberChange();
+      break;
+    case 'checkin':
+      onTimeChange(checkin, checkout);
+      break;
+    case 'checkout':
+      onTimeChange(checkout, checkin);
+      break;
+  }
+  // type.addEventListener('change', onTypeChange);
+  // roomsNumber.addEventListener('change', onRoomsGuestsNumberChange);
+  // guestsNumber.addEventListener('change', onRoomsGuestsNumberChange);
+  // checkin.addEventListener('change', () => onTimeChange(checkin, checkout));
+  // checkout.addEventListener('change', () => onTimeChange(checkout, checkin));
+});
 
 
 export {validateForm, adFormChange, checkErrors, resetFormValidator, validatePrice};

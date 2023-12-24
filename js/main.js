@@ -1,5 +1,6 @@
-import {deactivateForm} from './form/set-form-state.js';
+import {deactivateForms, activateFilters} from './form/set-form-state.js';
 import {renderMap} from './map/render-map.js';
 
-deactivateForm();
+deactivateForms();
 renderMap();
+activateFilters();

@@ -1,4 +1,4 @@
-import {activateForm} from '../form/set-form-state.js';
+import {activateAdForm} from '../form/set-form-state.js';
 import {generateAdsData} from '../render-ads/generate-data.js';
 import {renderAd} from '../render-ads/render-data.js';
 
@@ -8,10 +8,6 @@ const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">Open
 const ZOOM = 13;
 const COORDINATES_ROUND = 5;
 const DEFAULT_MAP_CENTER = {
-  lat: 35.675,
-  lng: 139.75
-};
-const DEFAULT_MARKER_POSITION = {
   lat: 35.683,
   lng: 139.753
 };
@@ -45,7 +41,7 @@ const adMarkerIcon = L.icon({
   iconAnchor: [AD_ICON_CONFIG.anchorX, AD_ICON_CONFIG.anchorY],
 });
 
-const defaultMarker = L.marker(DEFAULT_MARKER_POSITION, {
+const defaultMarker = L.marker(DEFAULT_MAP_CENTER, {
   draggable: true,
   icon: defaultMarkerIcon
 }).addTo(map);
@@ -56,7 +52,7 @@ const onMoveendDefaultMarker = (evt, input) => {
 };
 
 const renderDefaultMarkerCoordinates = (input) => {
-  input.value = `${DEFAULT_MARKER_POSITION.lat.toFixed(COORDINATES_ROUND)}, ${DEFAULT_MARKER_POSITION.lng.toFixed(COORDINATES_ROUND)}`;
+  input.value = `${DEFAULT_MAP_CENTER.lat.toFixed(COORDINATES_ROUND)}, ${DEFAULT_MAP_CENTER.lng.toFixed(COORDINATES_ROUND)}`;
   defaultMarker.on('moveend', (evt) => onMoveendDefaultMarker(evt, input));
 };
 
@@ -72,20 +68,21 @@ const renderAdsMarkers = () => {
 };
 
 const renderMap = () => {
-  map.on('load', () => {
-    activateForm();
-    renderAdsMarkers();
-  }).setView(DEFAULT_MAP_CENTER, ZOOM);
+  map.setView(DEFAULT_MAP_CENTER, ZOOM);
 
   L.tileLayer(TILE_LAYER, {
     attribution: COPYRIGHT
+  }).on('load', () => {
+    activateAdForm();
+    renderAdsMarkers();
   }).addTo(map);
 };
 
 const resetMap = (input) => {
-  defaultMarker.setLatLng(DEFAULT_MARKER_POSITION);
+  map.closePopup();
+  defaultMarker.setLatLng(DEFAULT_MAP_CENTER);
   map.setView(DEFAULT_MAP_CENTER, ZOOM);
-  input.value = `${DEFAULT_MARKER_POSITION.lat.toFixed(COORDINATES_ROUND)}, ${DEFAULT_MARKER_POSITION.lng.toFixed(COORDINATES_ROUND)}`;
+  input.value = `${DEFAULT_MAP_CENTER.lat.toFixed(COORDINATES_ROUND)}, ${DEFAULT_MAP_CENTER.lng.toFixed(COORDINATES_ROUND)}`;
 };
 
 export {renderMap, renderDefaultMarkerCoordinates, resetMap};
