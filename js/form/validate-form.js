@@ -20,7 +20,7 @@ const ROOMS_GUESTS_OPTIONS = {
   100: ['0']
 };
 
-const ERROR_LENGTH_TITLE_TEXT = 'Заголовок должен быть длиной от 30 до 100 символов';
+const ERROR_LENGTH_TITLE_TEXT = `Заголовок должен быть длиной от ${TITLE_LENGTH.min} до ${TITLE_LENGTH.max} символов`;
 const ERROR_MAX_PRICE_TEXT = 'Цена выше максимальной';
 const ERROR_MIN_PRICE_TEXT = 'Цена ниже минимальной';
 const ERROR_GUESTS_TEXT = 'Количество мест не соответствует количеству комнат';
@@ -64,10 +64,12 @@ const validateForm = () => pristine.validate();
 
 const resetFormValidator = () => pristine.reset();
 
+const validatePrice = () => pristine.validate(price);
+
 const onTypeChange = () => {
   price.placeholder = `Минимум ${MIN_PRICE[type.value]}`;
   price.min = MIN_PRICE[type.value];
-  pristine.validate(price);
+  validatePrice();
 };
 
 const onRoomsGuestsNumberChange = () => {
@@ -78,12 +80,24 @@ const onTimeChange = (first, second) => {
   second.value = first.value;
 };
 
-const adFormChange = () => {
-  type.addEventListener('change', onTypeChange);
-  roomsNumber.addEventListener('change', onRoomsGuestsNumberChange);
-  guestsNumber.addEventListener('change', onRoomsGuestsNumberChange);
-  checkin.addEventListener('change', () => onTimeChange(checkin, checkout));
-  checkout.addEventListener('change', () => onTimeChange(checkout, checkin));
-};
+const adFormChange = () => adForm.addEventListener('change', (event) => {
+  switch(event.target.name) {
+    case 'type':
+      onTypeChange();
+      break;
+    case 'rooms':
+      onRoomsGuestsNumberChange();
+      break;
+    case 'capacity':
+      onRoomsGuestsNumberChange();
+      break;
+    case 'checkin':
+      onTimeChange(checkin, checkout);
+      break;
+    case 'checkout':
+      onTimeChange(checkout, checkin);
+      break;
+  }
+});
 
-export {validateForm, adFormChange, checkErrors, resetFormValidator};
+export {validateForm, adFormChange, checkErrors, resetFormValidator, validatePrice};
