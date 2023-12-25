@@ -98,12 +98,6 @@ const adFormChange = () => adForm.addEventListener('change', (event) => {
       onTimeChange(checkout, checkin);
       break;
   }
-  // type.addEventListener('change', onTypeChange);
-  // roomsNumber.addEventListener('change', onRoomsGuestsNumberChange);
-  // guestsNumber.addEventListener('change', onRoomsGuestsNumberChange);
-  // checkin.addEventListener('change', () => onTimeChange(checkin, checkout));
-  // checkout.addEventListener('change', () => onTimeChange(checkout, checkin));
 });
-
 
 export {validateForm, adFormChange, checkErrors, resetFormValidator, validatePrice};
