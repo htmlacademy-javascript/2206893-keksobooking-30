@@ -1,9 +1,14 @@
-import {activateAdForm} from '../form/set-form-state.js';
-import {generateAdsData} from '../render-ads/generate-data.js';
+import {activateAdForm, activateFilters} from '../form/set-form-state.js';
 import {renderAd} from '../render-ads/render-data.js';
+import {getData} from '../data-server/api.js';
+import {renderGetErrorMessage} from '../utils/alert-messages.js';
 
+const GET_DATA_URL = 'https://30.javascript.pages.academy/keksobooking/data';
 const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const ERROR_MESSAGE = 'Ошибка загрузки похожих объявлений';
+
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
 const ZOOM = 13;
 const COORDINATES_ROUND = 5;
@@ -26,8 +31,14 @@ const AD_ICON_CONFIG = {
   anchorY: 40,
 };
 
-const ads = generateAdsData();
 const map = L.map('map-canvas');
+
+const showError = () => {
+  renderGetErrorMessage(errorTemplate);
+
+  document.querySelector('.error__message').textContent = ERROR_MESSAGE;
+  document.querySelector('.error__button').remove();
+};
 
 const defaultMarkerIcon = L.icon({
   iconUrl: DEFAULT_ICON_CONFIG.url,
@@ -63,9 +74,12 @@ const renderAdMarker = (ad) => L.marker(ad.location, {
 }).addTo(markersGroup)
   .bindPopup(renderAd(ad));
 
-const renderAdsMarkers = () => {
+const renderAdsMarkers = (ads) => {
   ads.forEach((ad) => renderAdMarker(ad));
+  activateFilters();
 };
+
+const initRenderAdsMarkers = () => getData(GET_DATA_URL, renderAdsMarkers, showError);
 
 const renderMap = () => {
   map.setView(DEFAULT_MAP_CENTER, ZOOM);
@@ -74,7 +88,7 @@ const renderMap = () => {
     attribution: COPYRIGHT
   }).on('load', () => {
     activateAdForm();
-    renderAdsMarkers();
+    initRenderAdsMarkers();
   }).addTo(map);
 };
 

@@ -1,5 +1,3 @@
-// import {generateAdsData} from './generate-data.js';
-
 const offerType = {
   'palace': 'Дворец',
   'flat': 'Квартира',
@@ -10,8 +8,6 @@ const offerType = {
 
 const container = document.querySelector('#map-canvas');
 const template = document.querySelector('#card').content.querySelector('.popup');
-
-// const adsData = generateAdsData();
 
 const renderFeatures = (features, adData) => {
   const featuresList = adData.querySelectorAll('.popup__feature');
