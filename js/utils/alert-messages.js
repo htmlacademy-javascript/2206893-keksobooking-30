@@ -1,6 +1,7 @@
 import {isEscapeKey} from '../utils/util.js';
 
 const ALERT_SHOW_TIME = 3000;
+const SUCCESS_SHOW_TIME = 7000;
 
 let template;
 
@@ -25,19 +26,11 @@ function onCloseButtonClick () {
   closeMessage();
 }
 
-function onBodyClick(evt, value) {
-  if (evt.target.closest(`.${value}`)) {
-    return;
-  }
-  closeMessage();
-}
-
-const renderMessage = (item, value) => {
+const renderErrorMessage = (item) => {
   createTemplate(item);
 
-  template.querySelector(`.${value}__button`).addEventListener('click', onCloseButtonClick);
+  template.querySelector('.error__button').addEventListener('click', onCloseButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
-  document.body.addEventListener('click', (evt) => onBodyClick(evt, value));
 };
 
 const renderGetErrorMessage = (item) => {
@@ -48,4 +41,14 @@ const renderGetErrorMessage = (item) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {renderMessage, renderGetErrorMessage};
+const renderSuccessMessage = (item) => {
+  createTemplate(item);
+
+  document.addEventListener('keydown', onDocumentKeydown);
+
+  setTimeout(() => {
+    template.remove();
+  }, SUCCESS_SHOW_TIME);
+};
+
+export {renderErrorMessage, renderSuccessMessage, renderGetErrorMessage};
