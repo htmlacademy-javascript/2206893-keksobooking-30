@@ -38,7 +38,7 @@ const resetFeatures = () => features.forEach(
     feature.checked = false;
   });
 
-const resetForm = () => {
+const resetAdForm = () => {
   adForm.reset();
   resetFormValidator();
   resetMap(address);
@@ -59,7 +59,7 @@ const resetForm = () => {
 const showSuccess = () => {
   renderSuccessMessage(sendSuccessTemplate);
   setSubmitButtonStatus(false);
-  resetForm();
+  resetAdForm();
 };
 
 const showError = () => {
@@ -75,15 +75,15 @@ const onSubmitForm = (evt) => {
   }
 };
 
-const onResetForm = (evt) => {
+const onResetAdForm = (evt) => {
   evt.preventDefault();
-  resetForm();
+  resetAdForm();
 };
 
 const sendForm = () => {
   adForm.addEventListener('submit', onSubmitForm);
   renderDefaultMarkerCoordinates(address);
-  adForm.addEventListener('reset', onResetForm);
+  adForm.addEventListener('reset', onResetAdForm);
 };
 
 export {sendForm};

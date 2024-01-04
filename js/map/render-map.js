@@ -2,6 +2,8 @@ import {activateAdForm, activateFilters} from '../form/set-form-state.js';
 import {renderAd} from '../render-ads/render-data.js';
 import {getData} from '../data-server/api.js';
 import {renderGetErrorMessage} from '../utils/alert-messages.js';
+import {filterAds} from './filter_ads.js';
+let receivedData;
 
 const GET_DATA_URL = 'https://30.javascript.pages.academy/keksobooking/data';
 const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -9,6 +11,7 @@ const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">Open
 const ERROR_MESSAGE = 'Ошибка загрузки похожих объявлений';
 
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const filterForm = document.querySelector('.map__filters');
 
 const ZOOM = 13;
 const COORDINATES_ROUND = 5;
@@ -75,8 +78,14 @@ const renderAdMarker = (ad) => L.marker(ad.location, {
   .bindPopup(renderAd(ad));
 
 const renderAdsMarkers = (ads) => {
-  ads.forEach((ad) => renderAdMarker(ad));
+  receivedData = ads;
+  filterAds(ads).forEach((ad) => renderAdMarker(ad));
   activateFilters();
+};
+
+const onFilterChange = () => {
+  markersGroup.clearLayers();
+  filterAds(receivedData).forEach((data) => renderAdMarker(data));
 };
 
 const initRenderAdsMarkers = () => getData(GET_DATA_URL, renderAdsMarkers, showError);
@@ -89,6 +98,7 @@ const renderMap = () => {
   }).on('load', () => {
     activateAdForm();
     initRenderAdsMarkers();
+    filterForm.addEventListener('change', onFilterChange);
   }).addTo(map);
 };
 
