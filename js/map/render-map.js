@@ -1,4 +1,5 @@
 import {activateAdForm, activateFilters} from '../form/set-form-state.js';
+import {debounce} from '../utils/util.js';
 import {renderAd} from '../render-ads/render-data.js';
 import {getData} from '../data-server/api.js';
 import {renderGetErrorMessage} from '../utils/alert-messages.js';
@@ -84,11 +85,13 @@ const renderAdsMarkers = (ads) => {
   activateFilters();
 };
 
-const onFilterChange = () => {
+const filterChange = () => {
   markersGroup.clearLayers();
   featuresList = Array.from(document.querySelectorAll('.map__checkbox:checked'), (element) => element.value);
   filterAds(receivedData, featuresList).forEach((data) => renderAdMarker(data));
 };
+
+const onFilterChange = debounce(() => filterChange());
 
 const initRenderAdsMarkers = () => getData(GET_DATA_URL, renderAdsMarkers, showError);
 
