@@ -21,13 +21,18 @@ const PRICE_TYPE = {
 const type = document.querySelector('#housing-type');
 const price = document.querySelector('#housing-price');
 const rooms = document.querySelector('#housing-rooms');
-// const guests = document.querySelector('#housing-guests');
-// const features = document.querySelectorAll('.map__checkbox:checked');
+const guests = document.querySelector('#housing-guests');
 
-const filterAds = (ads) => ads
+const filterAds = (ads, featuresList) => ads
   .filter(({offer}) => (type.value === DEFAULT || offer.type === type.value))
   .filter(({offer}) => (offer.price >= PRICE_TYPE[price.value].min && offer.price <= PRICE_TYPE[price.value].max))
   .filter(({offer}) => (rooms.value === DEFAULT || offer.rooms === Number(rooms.value)))
+  .filter(({offer}) => (guests.value === DEFAULT || offer.guests === Number(guests.value)))
+  .filter(({offer}) => (
+    featuresList.length === 0 || (offer.features && featuresList.every(
+      (feature) => offer.features.includes(feature))
+    ))
+  )
   .slice(0, MAX_ADS_COUNT);
 
 export {filterAds};

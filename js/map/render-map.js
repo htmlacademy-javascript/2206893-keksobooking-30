@@ -12,6 +12,7 @@ const ERROR_MESSAGE = 'Ошибка загрузки похожих объявл
 
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 const filterForm = document.querySelector('.map__filters');
+let featuresList = Array.from(document.querySelectorAll('.map__checkbox:checked'), (element) => element.value);
 
 const ZOOM = 13;
 const COORDINATES_ROUND = 5;
@@ -79,26 +80,27 @@ const renderAdMarker = (ad) => L.marker(ad.location, {
 
 const renderAdsMarkers = (ads) => {
   receivedData = ads;
-  filterAds(ads).forEach((ad) => renderAdMarker(ad));
+  filterAds(receivedData, featuresList).forEach((ad) => renderAdMarker(ad));
   activateFilters();
 };
 
 const onFilterChange = () => {
   markersGroup.clearLayers();
-  filterAds(receivedData).forEach((data) => renderAdMarker(data));
+  featuresList = Array.from(document.querySelectorAll('.map__checkbox:checked'), (element) => element.value);
+  filterAds(receivedData, featuresList).forEach((data) => renderAdMarker(data));
 };
 
 const initRenderAdsMarkers = () => getData(GET_DATA_URL, renderAdsMarkers, showError);
 
 const renderMap = () => {
-  map.setView(DEFAULT_MAP_CENTER, ZOOM);
-
-  L.tileLayer(TILE_LAYER, {
-    attribution: COPYRIGHT
-  }).on('load', () => {
+  map.on('load', () => {
     activateAdForm();
     initRenderAdsMarkers();
     filterForm.addEventListener('change', onFilterChange);
+  }).setView(DEFAULT_MAP_CENTER, ZOOM);
+
+  L.tileLayer(TILE_LAYER, {
+    attribution: COPYRIGHT
   }).addTo(map);
 };
 
