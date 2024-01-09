@@ -4,16 +4,6 @@ import {renderAd} from '../render-ads/render-data.js';
 import {getData} from '../data-server/api.js';
 import {renderGetErrorMessage} from '../utils/alert-messages.js';
 import {filterAds} from './filter_ads.js';
-let receivedData;
-
-const GET_DATA_URL = 'https://30.javascript.pages.academy/keksobooking/data';
-const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-const ERROR_MESSAGE = 'Ошибка загрузки похожих объявлений';
-
-const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-const filterForm = document.querySelector('.map__filters');
-let featuresList = Array.from(filterForm.querySelectorAll('.map__checkbox:checked'), (element) => element.value);
 
 const ZOOM = 13;
 const COORDINATES_ROUND = 5;
@@ -35,6 +25,17 @@ const AD_ICON_CONFIG = {
   anchorX: 20,
   anchorY: 40,
 };
+
+const GET_DATA_URL = 'https://30.javascript.pages.academy/keksobooking/data';
+const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const ERROR_MESSAGE = 'Ошибка загрузки похожих объявлений';
+
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const filterForm = document.querySelector('.map__filters');
+
+let featuresList = Array.from(filterForm.querySelectorAll('.map__checkbox:checked'), (element) => element.value);
+let receivedData;
 
 const map = L.map('map-canvas');
 

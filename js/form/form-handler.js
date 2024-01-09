@@ -12,7 +12,6 @@ const errorTemplate = document.querySelector('#error').content.querySelector('.e
 const price = document.querySelector('#price');
 const defaultPricePlaceholder = price.placeholder;
 const sendSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
-
 const adForm = document.querySelector('.ad-form');
 const resetForm = document.querySelector('.ad-form__reset');
 const address = adForm.querySelector('#address');

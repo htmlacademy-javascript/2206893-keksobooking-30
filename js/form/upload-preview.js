@@ -16,7 +16,6 @@ const photosContainer = document.querySelector('.ad-form__photo');
 const onAdFormHeaderInputClick = () => {
   const file = adFormHeaderInput.files[FIRST_ELEMENT_INDEX];
   const fileName = file.name.toLowerCase();
-
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
@@ -30,7 +29,6 @@ const onAdFormHeaderInputClick = () => {
 const onAdFormInputClick = () => {
   const file = adFormInput.files[FIRST_ELEMENT_INDEX];
   const fileName = file.name.toLowerCase();
-
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {

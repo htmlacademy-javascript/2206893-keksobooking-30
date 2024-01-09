@@ -15,8 +15,8 @@ const renderAd = (data) => {
   const featuresList = adData.querySelectorAll('.popup__feature');
   const photosContainer = adData.querySelector('.popup__photos');
   const photoTemplate = adData.querySelector('.popup__photo');
-  adData.querySelector('.popup__photo').remove();
 
+  adData.querySelector('.popup__photo').remove();
   adData.querySelector('.popup__avatar').src = author.avatar;
   adData.querySelector('.popup__title').textContent = offer.title;
   adData.querySelector('.popup__text--address').textContent = offer.address;
@@ -24,6 +24,7 @@ const renderAd = (data) => {
   adData.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
   adData.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   adData.querySelector('.popup__type').textContent = offerType[offer.type];
+
   if (!offer.features) {
     adData.querySelector('.popup__features').remove();
   } else {
@@ -44,10 +45,10 @@ const renderAd = (data) => {
     });
   }
 
-  if (offer.description) {
-    adData.querySelector('.popup__description').textContent = offer.description;
-  } else {
+  if (!offer.description) {
     adData.querySelector('.popup__description').remove();
+  } else {
+    adData.querySelector('.popup__description').textContent = offer.description;
   }
 
   return container.appendChild(adData);

@@ -18,6 +18,7 @@ const PRICE_TYPE = {
     max: 100000
   }
 };
+
 const filterForm = document.querySelector('.map__filters');
 const type = filterForm.querySelector('#housing-type');
 const price = filterForm.querySelector('#housing-price');
