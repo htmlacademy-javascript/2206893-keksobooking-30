@@ -18,10 +18,11 @@ const PRICE_TYPE = {
     max: 100000
   }
 };
-const type = document.querySelector('#housing-type');
-const price = document.querySelector('#housing-price');
-const rooms = document.querySelector('#housing-rooms');
-const guests = document.querySelector('#housing-guests');
+const filterForm = document.querySelector('.map__filters');
+const type = filterForm.querySelector('#housing-type');
+const price = filterForm.querySelector('#housing-price');
+const rooms = filterForm.querySelector('#housing-rooms');
+const guests = filterForm.querySelector('#housing-guests');
 
 const filterAds = (ads, featuresList) => ads
   .filter(({offer}) => (type.value === DEFAULT || offer.type === type.value))

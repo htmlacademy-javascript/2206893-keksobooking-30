@@ -13,7 +13,7 @@ const ERROR_MESSAGE = 'Ошибка загрузки похожих объявл
 
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 const filterForm = document.querySelector('.map__filters');
-let featuresList = Array.from(document.querySelectorAll('.map__checkbox:checked'), (element) => element.value);
+let featuresList = Array.from(filterForm.querySelectorAll('.map__checkbox:checked'), (element) => element.value);
 
 const ZOOM = 13;
 const COORDINATES_ROUND = 5;
@@ -80,7 +80,7 @@ const renderAdsMarkers = (ads) => {
 
 const filterChange = () => {
   markersGroup.clearLayers();
-  featuresList = Array.from(document.querySelectorAll('.map__checkbox:checked'), (element) => element.value);
+  featuresList = Array.from(filterForm.querySelectorAll('.map__checkbox:checked'), (element) => element.value);
   filterAds(receivedData, featuresList).forEach((data) => renderAdMarker(data));
 };
 
