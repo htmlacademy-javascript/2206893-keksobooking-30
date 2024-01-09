@@ -33,8 +33,12 @@ const renderErrorMessage = (item) => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const renderGetErrorMessage = (item) => {
+const renderGetErrorMessage = (item, message) => {
   createTemplate(item);
+
+  document.querySelector('.error__message').textContent = message;
+  document.querySelector('.error__button').remove();
+  document.addEventListener('keydown', onDocumentKeydown);
 
   setTimeout(() => {
     template.remove();

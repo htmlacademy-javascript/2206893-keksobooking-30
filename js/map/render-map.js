@@ -38,13 +38,6 @@ const AD_ICON_CONFIG = {
 
 const map = L.map('map-canvas');
 
-const showError = () => {
-  renderGetErrorMessage(errorTemplate);
-
-  document.querySelector('.error__message').textContent = ERROR_MESSAGE;
-  document.querySelector('.error__button').remove();
-};
-
 const defaultMarkerIcon = L.icon({
   iconUrl: DEFAULT_ICON_CONFIG.url,
   iconSize: [DEFAULT_ICON_CONFIG.width, DEFAULT_ICON_CONFIG.height],
@@ -93,6 +86,8 @@ const filterChange = () => {
 
 const onFilterChange = debounce(() => filterChange());
 
+const showError = () => renderGetErrorMessage(errorTemplate, ERROR_MESSAGE);
+
 const initRenderAdsMarkers = () => getData(GET_DATA_URL, renderAdsMarkers, showError);
 
 const renderMap = () => {
@@ -112,6 +107,8 @@ const resetMap = (input) => {
   defaultMarker.setLatLng(DEFAULT_MAP_CENTER);
   map.setView(DEFAULT_MAP_CENTER, ZOOM);
   input.value = `${DEFAULT_MAP_CENTER.lat.toFixed(COORDINATES_ROUND)}, ${DEFAULT_MAP_CENTER.lng.toFixed(COORDINATES_ROUND)}`;
+  filterForm.reset();
+  filterChange();
 };
 
 export {renderMap, renderDefaultMarkerCoordinates, resetMap};
