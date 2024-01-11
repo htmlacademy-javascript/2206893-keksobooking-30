@@ -1,10 +1,8 @@
+const MAX_PRICE = 100000;
 const TITLE_LENGTH = {
   min: 30,
   max: 100
 };
-
-const MAX_PRICE = 100000;
-
 const MIN_PRICE = {
   bungalow: 0,
   flat: 1000,
@@ -12,7 +10,6 @@ const MIN_PRICE = {
   hotel: 3000,
   palace: 10000
 };
-
 const ROOMS_GUESTS_OPTIONS = {
   1: ['1'],
   2: ['1', '2'],
@@ -44,6 +41,7 @@ const pristine = new Pristine(adForm, {
 const validateTitleLength = (value) => value.length >= TITLE_LENGTH.min && value.length <= TITLE_LENGTH.max;
 
 const isPriceTooHigh = (value) => value <= MAX_PRICE;
+
 const isPriceTooLow = (value) => value >= MIN_PRICE[type.value];
 
 const validateGuestsNumber = (value) => ROOMS_GUESTS_OPTIONS[roomsNumber.value].includes(value);
@@ -80,24 +78,12 @@ const onTimeChange = (first, second) => {
   second.value = first.value;
 };
 
-const adFormChange = () => adForm.addEventListener('change', (event) => {
-  switch(event.target.name) {
-    case 'type':
-      onTypeChange();
-      break;
-    case 'rooms':
-      onRoomsGuestsNumberChange();
-      break;
-    case 'capacity':
-      onRoomsGuestsNumberChange();
-      break;
-    case 'checkin':
-      onTimeChange(checkin, checkout);
-      break;
-    case 'checkout':
-      onTimeChange(checkout, checkin);
-      break;
-  }
-});
+const adFormChange = () => {
+  type.addEventListener('change', onTypeChange);
+  roomsNumber.addEventListener('change', onRoomsGuestsNumberChange);
+  guestsNumber.addEventListener('change', onRoomsGuestsNumberChange);
+  checkin.addEventListener('change', () => onTimeChange(checkin, checkout));
+  checkout.addEventListener('change', () => onTimeChange(checkout, checkin));
+};
 
 export {validateForm, adFormChange, checkErrors, resetFormValidator, validatePrice};

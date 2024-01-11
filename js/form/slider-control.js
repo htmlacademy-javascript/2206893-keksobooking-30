@@ -2,7 +2,6 @@ import {validatePrice} from './validate-form.js';
 
 const MAX_PRICE = 100000;
 const STEP = 1;
-
 const MIN_PRICE = 0;
 
 const slider = document.querySelector('.ad-form__slider');
