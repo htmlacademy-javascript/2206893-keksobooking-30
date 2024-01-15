@@ -1,7 +1,6 @@
 import {isEscapeKey} from '../utils/util.js';
 
-const ALERT_SHOW_TIME = 3000;
-const SUCCESS_SHOW_TIME = 7000;
+const ALERT_SHOW_TIME = 7000;
 
 let template;
 
@@ -18,8 +17,9 @@ const createTemplate = (item) => {
 };
 
 function closeMessage () {
-  template.remove();
+  template.removeEventListener('click', onCloseButtonClick);
   document.removeEventListener('keydown', onDocumentKeydown);
+  template.remove();
 }
 
 function onCloseButtonClick () {
@@ -29,8 +29,12 @@ function onCloseButtonClick () {
 const renderErrorMessage = (item) => {
   createTemplate(item);
 
-  template.querySelector('.error__button').addEventListener('click', onCloseButtonClick);
+  template.addEventListener('click', onCloseButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
+
+  setTimeout(() => {
+    closeMessage();
+  }, ALERT_SHOW_TIME);
 };
 
 const renderGetErrorMessage = (item, message) => {
@@ -38,21 +42,15 @@ const renderGetErrorMessage = (item, message) => {
 
   document.querySelector('.error__message').textContent = message;
   document.querySelector('.error__button').remove();
+  template.addEventListener('click', onCloseButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
-
-  setTimeout(() => {
-    template.remove();
-  }, ALERT_SHOW_TIME);
 };
 
 const renderSuccessMessage = (item) => {
   createTemplate(item);
 
+  template.addEventListener('click', onCloseButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
-
-  setTimeout(() => {
-    template.remove();
-  }, SUCCESS_SHOW_TIME);
 };
 
 export {renderErrorMessage, renderSuccessMessage, renderGetErrorMessage};
