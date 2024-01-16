@@ -23,6 +23,7 @@ const onAdFormHeaderInputClick = () => {
     previewFull.src = src;
   } else {
     renderGetErrorMessage(errorTemplate, ERROR_TYPE_MESSAGE);
+    adFormHeaderInput.value = '';
   }
 };
 
@@ -39,6 +40,7 @@ const onAdFormInputClick = () => {
     photosContainer.appendChild(photoTemplate);
   } else {
     renderGetErrorMessage(errorTemplate, ERROR_TYPE_MESSAGE);
+    adFormInput.value = '';
   }
 };
 
